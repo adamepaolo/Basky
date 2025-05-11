@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Admin - Groceries{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Add Grocery</h1>
+    {{ wtf.quick_form(form) }}
+
+    <h2>Grocery List</h2>
+    <ul>
+        {% for grocery in groceries %}
+        <li>{{ grocery.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

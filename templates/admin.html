@@ -1,0 +1,129 @@
+	{% extends "base.html" %}
+	{% import "bootstrap/wtf.html" as wtf %}
+
+	{% block title %}Admin Panel{% endblock %}
+
+	{% block navbar %}
+		{{ super() }}
+	{% endblock %}
+
+	{% block content %}
+	<style>
+		body {
+			background: url("{{ url_for('static', filename='images/landing3.jpg') }}") no-repeat center center fixed;
+			background-size: cover;
+			color: white;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin-top: 90px;
+		}
+
+		.container {
+			background: rgba(0, 0, 0, 0.7);
+			backdrop-filter: blur(10px);
+			padding: 3rem;
+			border-radius: 15px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+			max-width: 800px;
+			margin: 2rem auto;
+		}
+
+		h1, h2, label, p, a {
+			color: white;
+		}
+
+		.form-group {
+			margin-bottom: 1rem;
+		}
+
+		.form-control {
+			background-color: rgba(255, 255, 255, 0.1) !important;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			color: white !important;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+			font-size: 1rem !important;
+			padding: 0.5rem 0.8rem !important;
+			height: 2.5rem !important;
+			line-height: 1.5rem !important;
+			box-sizing: border-box !important;
+		}
+
+		.form-control option {
+			color: black; /* Set option text color to black */
+		}
+
+		.form-control::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.btn-primary {
+			background-color: #4CAF50;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			transition: background-color 0.3s ease, box-shadow 0.3s ease;
+			color: white;
+			font-size: 1.1rem;
+			cursor: pointer;
+			padding: 1rem 1.5rem;
+		}
+
+		.btn-primary:hover {
+			background-color: #45a049;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+		}
+
+		.return-home {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.return-home a {
+			color: #007bff;
+		}
+
+		.error-message {
+			color: red;
+			font-size: 0.9rem;
+		}
+	</style>
+
+	<div class="container">
+		<h1>Admin Panel</h1>
+
+		<h2>Assign User Roles</h2>
+		<form method="POST" action="{{ url_for('admin') }}">
+			{{ assign_form.hidden_tag() }}
+			<div class="form-group">
+				{{ assign_form.email.label(class="form-control-label") }}
+				{{ assign_form.email(class="form-control", placeholder="Enter email") }}
+				{% for error in assign_form.email.errors %}
+					<span class="error-message">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+			<div class="form-group">
+				{{ assign_form.role.label(class="form-control-label") }}
+				{{ assign_form.role(class="form-control") }}
+				{% for error in assign_form.role.errors %}
+					<span class="error-message">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+			<button type="submit" class="btn btn-primary">{{ assign_form.submit.label }}</button>
+		</form>
+
+		<h2>Add Store-Vendor</h2>
+		<form method="POST" action="{{ url_for('admin') }}">
+			{{ add_store_form.hidden_tag() }}
+			<div class="form-group">
+				{{ add_store_form.store_name.label(class="form-control-label") }}
+				{{ add_store_form.store_name(class="form-control", placeholder="Enter store name") }}
+				{% for error in add_store_form.store_name.errors %}
+					<span class="error-message">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+			<button type="submit" class="btn btn-primary">{{ add_store_form.submit.label }}</button>
+		</form>
+		<div class="return-home">
+			<a href="{{ url_for('index') }}">Return Home</a>
+		</div>
+	</div>
+	{% endblock %}

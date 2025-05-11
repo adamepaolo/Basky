@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Register a new Shopper{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse navbar-expand-lg fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="/robochat/">Basky - Online Grocery / Food Market</a>
+    </div>
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                {% if session.get('email') %}
+                <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ongoing/">Customers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ongoing/">Sellers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ongoing/">Tools</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="/about/">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/robochat/">Basky Chat</a></li>
+                {% if session.get('email') %}
+                <li class="nav-item"><a class="nav-link" href="/vendors/">Vendors</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: url("{{ url_for('static', filename='images/landing3.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        color: white; /* Default text color to white */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .content-container {
+        margin-top: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 90px);
+    }
+
+    .register-form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        max-width: 1200px;
+    }
+
+    .register-form {
+        background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+        backdrop-filter: blur(10px); /* Optional blur effect */
+        padding: 3rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        width: 50%;
+        text-align: left;
+    }
+
+    .register-form h1,
+    .register-form label,
+    .register-form p,
+    .register-form a {
+        color: white; /* White text for all elements */
+    }
+
+    .image-container {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .responsive-image {
+        max-width: 90%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .register-link {
+        margin-top: 2rem;
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .register-link a {
+        color: #007bff; /* Link color */
+    }
+
+    .wtf-form-group input,
+    .wtf-form-group select {
+        background-color: rgba(255, 255, 255, 0.1); /* Dark input background */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Dark input border */
+        color: white;
+        font-size: 1.2rem;
+        padding: 0.8rem;
+    }
+
+    .register-form input[type="submit"] {
+        font-size: 1.3rem;
+        padding: 1rem 2rem;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        color: white;
+        cursor: pointer;
+    }
+
+    .register-form input[type="submit"]:hover {
+        background-color: #45a049;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Responsive adjustments for image container */
+    @media (max-width: 768px) {
+        .register-form-container {
+            flex-direction: column;
+        }
+
+        .register-form, .image-container {
+            width: 100%;
+        }
+
+        .image-container {
+            margin-top: 2rem;
+        }
+    }
+</style>
+
+<div class="content-container">
+    <div class="register-form-container">
+        <div class="register-form">
+            <h1>Register with us!</h1>
+            {{ wtf.quick_form(form) }}
+            <p class="register-link">
+                Already Registered?
+                <a href="{{ url_for('login') }}">Click here to login</a>
+            </p>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/register3.jpg') }}" alt="Baskie" class="responsive-image">
+        </div>
+    </div>
+</div>
+{% endblock %}
